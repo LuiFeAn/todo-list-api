@@ -12,6 +12,7 @@ describe('RegisterUserUseCase Unit Tests', () => {
   beforeEach(() => {
     userRepoMock = {
       findByEmail: jest.fn(),
+      findByEmailEntity: jest.fn(),
       findById: jest.fn(),
       findAll: jest.fn(),
       create: jest.fn(),

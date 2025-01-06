@@ -8,7 +8,7 @@ import {
   MaxLength,
   validateSync,
 } from 'class-validator';
-import { IUserConstructorProps } from './user.interface';
+import { IUser } from './user.interface';
 import { hash, compare } from 'bcrypt';
 import classValidatorValidation from '@utils/classValidatorValidation';
 import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
@@ -46,7 +46,7 @@ export class User {
     email,
     username,
     password,
-  }: IUserConstructorProps) {
+  }: IUser) {
     this._id = id;
     this._email = email;
     this._username = username;

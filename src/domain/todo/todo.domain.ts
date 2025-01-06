@@ -10,7 +10,7 @@ import {
   validateSync,
 } from 'class-validator';
 import { PriorityEnum } from './priority.enum';
-import { ITodoConstructorProps } from './todo.interface';
+import { ITodo } from './todo.interface';
 import classValidatorValidation from '@utils/classValidatorValidation';
 import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
 
@@ -41,7 +41,7 @@ export class TodoList {
   @IsISO8601()
   private _createdAt: string;
 
-  constructor({ id, createdAt, description, title }: ITodoConstructorProps) {
+  constructor({ id, createdAt, description, title }: ITodo) {
     this._id = id;
     this._description = description;
     this._title = title;

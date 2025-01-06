@@ -1,6 +1,6 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
 import { UserFactory } from '@domain/user/user.factory';
-import { IUserConstructorProps } from '@domain/user/user.interface';
+import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import {
@@ -13,7 +13,7 @@ import {
 import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
 
 export class RegisterUserUseCase
-  implements IBaseUseCase<RegisterUserInputDto, IUserConstructorProps>
+  implements IBaseUseCase<RegisterUserInputDto, IUser>
 {
   constructor(private readonly userRepo: UserGateway) {}
 
@@ -21,7 +21,7 @@ export class RegisterUserUseCase
     username,
     email,
     password,
-  }: RegisterUserInputDto): Promise<IUserConstructorProps> {
+  }: RegisterUserInputDto): Promise<IUser> {
     const emailAlreadyExists = await this.userRepo.findByEmail(email);
 
     if (emailAlreadyExists) {

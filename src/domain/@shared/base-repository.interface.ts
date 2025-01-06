@@ -5,7 +5,7 @@ import {
 
 export interface IBaseRepository<E> {
   create(entity: E): Promise<void>;
-  findById(id: string): Promise<E>;
+  findById(id: string): Promise<E | null | undefined>;
   findAll(
     data: Partial<E>,
     pagination: IRepositoryMetaDataInput,

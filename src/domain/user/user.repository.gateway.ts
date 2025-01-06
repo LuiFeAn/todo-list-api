@@ -6,5 +6,6 @@ export abstract class UserGateway
 {
   abstract create(entity: User): Promise<void>;
   abstract findById(id: string): Promise<User>;
+  abstract findByEmailEntity(email: string): Promise<User | null | undefined>;
   abstract findByEmail(email: string): Promise<boolean>;
 }
