@@ -12,7 +12,7 @@ export class TypeOrmUserRepository implements UserGateway {
   ) {}
 
   async create(entity: User): Promise<void> {
-    await this.repository.create(entity);
+    await this.repository.save(UserMapper.toOutput(entity));
   }
   async findById(id: string): Promise<User> {
     const user = await this.repository.findOne({
