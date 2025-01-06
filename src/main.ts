@@ -12,6 +12,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
   await app.listen(process.env.API_PORT ?? 3000);
 }
 bootstrap();
