@@ -2,7 +2,7 @@ import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exist
 import { UserFactory } from '@domain/user/user.factory';
 import { IUserConstructorProps } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
-import { AbstractUserRepository } from '@domain/user/user.repository.gateway';
+import { UserGateway } from '@domain/user/user.repository.gateway';
 import {
   IsEmail,
   IsNotEmpty,
@@ -15,7 +15,7 @@ import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
 export class RegisterUserUseCase
   implements IBaseUseCase<RegisterUserInputDto, IUserConstructorProps>
 {
-  constructor(private readonly userRepo: AbstractUserRepository) {}
+  constructor(private readonly userRepo: UserGateway) {}
 
   async execute({
     username,

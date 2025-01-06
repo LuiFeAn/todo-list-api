@@ -17,6 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         port: configService.get<number>('DB_PORT'),
         password: configService.get<string>('DB_PASS'),
         entities: [UserModel],
+        synchronize: true,
       }),
     }),
     JwtModule.register({
@@ -26,8 +27,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    UserModule,
   ],
   controllers: [],
-  providers: [UserModule],
+  providers: [],
 })
 export class AppModule {}

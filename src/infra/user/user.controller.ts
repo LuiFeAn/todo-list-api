@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import {
   RegisterUserInputDto,
   RegisterUserUseCase,
@@ -9,7 +9,7 @@ export class UserController {
   constructor(private readonly registerUser: RegisterUserUseCase) {}
 
   @Post()
-  async create(dto: RegisterUserInputDto) {
+  async create(@Body() dto: RegisterUserInputDto) {
     await this.registerUser.execute(dto);
   }
 }

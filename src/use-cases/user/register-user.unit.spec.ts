@@ -1,13 +1,12 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
-import { UserFactory } from '@domain/user/user.factory';
-import { AbstractUserRepository } from '@domain/user/user.repository.gateway';
+import { UserGateway } from '@domain/user/user.repository.gateway';
 import {
   RegisterUserUseCase,
   RegisterUserInputDto,
 } from './register-user.use-case';
 
 describe('RegisterUserUseCase Unit Tests', () => {
-  let userRepoMock: jest.Mocked<AbstractUserRepository>;
+  let userRepoMock: jest.Mocked<UserGateway>;
   let useCase: RegisterUserUseCase;
 
   beforeEach(() => {
@@ -18,7 +17,7 @@ describe('RegisterUserUseCase Unit Tests', () => {
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
-    } as jest.Mocked<AbstractUserRepository>;
+    } as jest.Mocked<UserGateway>;
 
     useCase = new RegisterUserUseCase(userRepoMock);
   });
