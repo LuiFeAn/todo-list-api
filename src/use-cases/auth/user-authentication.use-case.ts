@@ -1,12 +1,12 @@
-import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
 import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
-import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import JwtContract from '@infra/jwt/jwt-adapter';
-import classValidatorValidation from '@utils/classValidatorValidation';
-import { IsEmail, IsNotEmpty, IsString, validateSync } from 'class-validator';
 import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
+import {
+  UserAuthenticationInputDto,
+  UserAuthenticationOutputDto,
+} from './dto/user-authentication.dto';
 
 export class UserAuthenticationUseCase
   implements
@@ -45,30 +45,4 @@ export class UserAuthenticationUseCase
       accessToken,
     };
   }
-}
-
-export class UserAuthenticationInputDto {
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  password: string;
-
-  validate() {
-    const validation = classValidatorValidation(validateSync(this));
-
-    if (validation.errors.length > 0) {
-      throw new EntityErrors({
-        context: 'UserAuthenticationInput',
-        ...validation,
-      });
-    }
-  }
-}
-
-export class UserAuthenticationOutputDto {
-  user: IUser;
-  accessToken: string;
 }

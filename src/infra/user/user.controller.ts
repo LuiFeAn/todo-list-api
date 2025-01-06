@@ -1,9 +1,7 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
 import { Body, ConflictException, Controller, Post } from '@nestjs/common';
-import {
-  RegisterUserInputDto,
-  RegisterUserUseCase,
-} from 'src/use-cases/user/register-user.use-case';
+import { RegisterUserInputDto } from 'src/use-cases/user/dto/register-user.dto';
+import { RegisterUserUseCase } from 'src/use-cases/user/register-user.use-case';
 
 @Controller({ path: 'users', version: '1' })
 export class UserController {

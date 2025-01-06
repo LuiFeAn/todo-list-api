@@ -3,14 +3,8 @@ import { UserFactory } from '@domain/user/user.factory';
 import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  IsStrongPassword,
-  MaxLength,
-} from 'class-validator';
 import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
+import { RegisterUserInputDto } from './dto/register-user.dto';
 
 export class RegisterUserUseCase
   implements IBaseUseCase<RegisterUserInputDto, IUser>
@@ -40,25 +34,4 @@ export class RegisterUserUseCase
 
     return UserMapper.toOutput(user);
   }
-}
-
-export class RegisterUserInputDto {
-  @IsNotEmpty()
-  @IsString()
-  @MaxLength(250)
-  username: string;
-
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsStrongPassword({
-    minLength: 8,
-    minUppercase: 0,
-    minSymbols: 1,
-    minNumbers: 1,
-  })
-  password: string;
 }
