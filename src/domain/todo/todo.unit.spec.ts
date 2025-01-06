@@ -1,21 +1,24 @@
 import { randomUUID } from 'crypto';
 import { TodoList } from './todo.domain';
 import { PriorityEnum } from './priority.enum';
-import { TodoListMapper } from './todo.mapper';
 
 describe('TodoList Entity Unit Tests', () => {
   it('should create a TodoList successfully', () => {
     const input = {
       id: randomUUID(),
       title: 'Sample Todo',
-      done: false,
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
     };
 
-    const todo = TodoListMapper.toOuput(new TodoList(input));
+    const todo = new TodoList(input);
 
-    expect(input).toEqual(todo);
+    expect(todo.id).toBe(input.id);
+    expect(todo.title).toBe(input.title);
+    expect(todo.description).toBe(input.description);
+    expect(todo.done).toBe(false); // Default value
+    expect(todo.priority).toBe(PriorityEnum.Low); // Default value
+    expect(todo.createdAt).toBe(input.createdAt);
   });
 
   it('should throw an error if the UUID is empty', () => {
@@ -114,7 +117,7 @@ describe('TodoList Entity Unit Tests', () => {
     );
   });
 
-  it('should default done to false and priority to Low if not provided', () => {
+  it('should mark a TodoList as done', () => {
     const input = {
       id: randomUUID(),
       title: 'Sample Todo',
@@ -124,11 +127,43 @@ describe('TodoList Entity Unit Tests', () => {
 
     const todo = new TodoList(input);
 
-    expect(todo.done).toBe(false);
-    expect(todo.priority).toBe(PriorityEnum.Low);
+    todo.makeDone();
+    expect(todo.done).toBe(true);
   });
 
-  it('should allow setting done and priority explicitly', () => {
+  it('should mark a TodoList as not done', () => {
+    const input = {
+      id: randomUUID(),
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    const todo = new TodoList(input);
+
+    todo.makeDone();
+    todo.makeNotDone();
+    expect(todo.done).toBe(false);
+  });
+
+  it('should change the priority of a TodoList', () => {
+    const input = {
+      id: randomUUID(),
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    const todo = new TodoList(input);
+
+    todo.changePriority(PriorityEnum.High);
+    expect(todo.priority).toBe(PriorityEnum.High);
+
+    todo.changePriority(PriorityEnum.Medium);
+    expect(todo.priority).toBe(PriorityEnum.Medium);
+  });
+
+  it('should allow explicit values for done and priority', () => {
     const input = {
       id: randomUUID(),
       title: 'Sample Todo',
