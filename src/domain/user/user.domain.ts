@@ -3,6 +3,7 @@ import {
   IsISO8601,
   IsNotEmpty,
   IsString,
+  IsStrongPassword,
   IsUUID,
   MaxLength,
   validateSync,
@@ -23,6 +24,12 @@ export class User {
 
   @IsString()
   @IsNotEmpty()
+  @IsStrongPassword({
+    minLength: 8,
+    minUppercase: 0,
+    minSymbols: 1,
+    minNumbers: 1,
+  })
   private _password: string;
 
   @IsEmail()

@@ -53,6 +53,11 @@ export class RegisterUserInputDto {
 
   @IsNotEmpty()
   @IsString()
-  @IsStrongPassword()
+  @IsStrongPassword({
+    minLength: 8,
+    minUppercase: 0,
+    minSymbols: 1,
+    minNumbers: 1,
+  })
   password: string;
 }

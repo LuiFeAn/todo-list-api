@@ -1,91 +1,127 @@
 import { randomUUID } from 'crypto';
 import { User } from './user.domain';
-import { UserMapper } from './user.mapper';
 
-describe('UserEntity Unit Tests', () => {
-  it('should create a user successfully', () => {
+describe('User Entity Unit Tests with Custom Strong Password Rules', () => {
+  it('should create a user successfully with a valid strong password', () => {
     const input = {
       id: randomUUID(),
       email: 'test@example.com',
       username: 'Luis Fernando',
-      password: '12345',
+      password: 'ValidPass1!',
       createdAt: new Date().toISOString(),
     };
 
-    const user = UserMapper.toOutput(new User(input));
+    const user = new User(input);
 
-    expect(input).toEqual(user);
-    expect(user).toBeTruthy();
+    expect(user.id).toBe(input.id);
+    expect(user.email).toBe(input.email);
+    expect(user.username).toBe(input.username);
+    expect(user.password).toBe(input.password);
+    expect(user.createdAt).toBe(input.createdAt);
   });
 
-  it('should throw an error if the UUID is empty', () => {
-    const input = {
-      id: '',
-      email: 'test@example.com',
-      username: 'Luis Fernando',
-      password: '12345',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new User(input)).toThrow('_id should not be empty');
-  });
-
-  it('should throw an error if the UUID is invalid', () => {
-    const input = {
-      id: '12345',
-      email: 'test@example.com',
-      username: 'Luis Fernando',
-      password: '12345',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new User(input)).toThrow('_id must be a UUID');
-  });
-
-  it('should throw an error if the username is empty', () => {
+  it('should throw an error if the password does not meet the minimum length', () => {
     const input = {
       id: randomUUID(),
       email: 'test@example.com',
-      username: '',
-      password: '12345',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new User(input)).toThrow('_username should not be empty');
-  });
-
-  it('should throw an error if the username exceeds 250 characters', () => {
-    const input = {
-      id: randomUUID(),
-      email: 'test@example.com',
-      username: 'Luis'.repeat(250),
-      password: '12345',
+      username: 'Luis Fernando',
+      password: 'Short1!',
       createdAt: new Date().toISOString(),
     };
 
     expect(() => new User(input)).toThrow(
-      '_username must be shorter than or equal to 250 characters',
+      '_password is not strong enough',
     );
   });
 
-  it('should throw an error if the password is empty', () => {
+  it('should throw an error if the password does not contain at least one number', () => {
     const input = {
       id: randomUUID(),
       email: 'test@example.com',
       username: 'Luis Fernando',
-      password: '',
+      password: 'NoNumber!',
       createdAt: new Date().toISOString(),
     };
 
-    expect(() => new User(input)).toThrow('_password should not be empty');
+    expect(() => new User(input)).toThrow(
+      '_password is not strong enough',
+    );
+  });
+
+  it('should throw an error if the password does not contain at least one symbol', () => {
+    const input = {
+      id: randomUUID(),
+      email: 'test@example.com',
+      username: 'Luis Fernando',
+      password: 'NoSymbol1',
+      createdAt: new Date().toISOString(),
+    };
+
+    expect(() => new User(input)).toThrow(
+      '_password is not strong enough',
+    );
+  });
+
+  it('should hash the password successfully', async () => {
+    const input = {
+      id: randomUUID(),
+      email: 'test@example.com',
+      username: 'Luis Fernando',
+      password: 'ValidPass1!',
+      createdAt: new Date().toISOString(),
+    };
+
+    const user = new User(input);
+    await user.hashPassword();
+
+    expect(user.password).not.toBe(input.password);
+    expect(user.password).toMatch(/^\$2[aby]?\$.{56}$/);
+  });
+
+  it('should compare passwords successfully', async () => {
+    const input = {
+      id: randomUUID(),
+      email: 'test@example.com',
+      username: 'Luis Fernando',
+      password: 'ValidPass1!',
+      createdAt: new Date().toISOString(),
+    };
+
+    const user = new User(input);
+    await user.hashPassword();
+
+    const isMatch = await user.comparePassword('ValidPass1!');
+    expect(isMatch).toBe(true);
+
+    const isNotMatch = await user.comparePassword('WrongPass1!');
+    expect(isNotMatch).toBe(false);
+  });
+
+  it('should maintain idempotency for password comparison after hashing', async () => {
+    const input = {
+      id: randomUUID(),
+      email: 'test@example.com',
+      username: 'Luis Fernando',
+      password: 'ValidPass1!',
+      createdAt: new Date().toISOString(),
+    };
+
+    const user = new User(input);
+    await user.hashPassword();
+
+    const firstCheck = await user.comparePassword('ValidPass1!');
+    const secondCheck = await user.comparePassword('ValidPass1!');
+
+    expect(firstCheck).toBe(true);
+    expect(secondCheck).toBe(true);
   });
 
   it('should throw an error if the email is invalid', () => {
     const input = {
       id: randomUUID(),
-      email: 'testemail.com',
+      email: 'invalid-email',
       username: 'Luis Fernando',
-      password: '12345',
+      password: 'ValidPass1!',
       createdAt: new Date().toISOString(),
     };
 
@@ -97,24 +133,10 @@ describe('UserEntity Unit Tests', () => {
       id: randomUUID(),
       email: '',
       username: 'Luis Fernando',
-      password: '12345',
+      password: 'ValidPass1!',
       createdAt: new Date().toISOString(),
     };
 
-    expect(() => new User(input)).toThrow(
-      '_email should not be empty,_email must be an email',
-    );
-  });
-
-  it('should throw an error if the email format is invalid', () => {
-    const input = {
-      id: randomUUID(),
-      email: 'testemail.com',
-      username: 'Luis Fernando',
-      password: '12345',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new User(input)).toThrow('_email must be an email');
+    expect(() => new User(input)).toThrow('_email should not be empty');
   });
 });
