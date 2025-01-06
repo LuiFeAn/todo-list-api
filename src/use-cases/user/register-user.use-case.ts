@@ -1,5 +1,4 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
-import { User } from '@domain/user/user.domain';
 import { UserFactory } from '@domain/user/user.factory';
 import { IUserConstructorProps } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
@@ -34,6 +33,8 @@ export class RegisterUserUseCase
       password,
       username,
     });
+
+    await user.hashPassword();
 
     await this.userRepo.create(user);
 
