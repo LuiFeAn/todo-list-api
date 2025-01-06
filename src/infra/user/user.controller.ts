@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
+import { Body, ConflictException, Controller, Post } from '@nestjs/common';
 import {
   RegisterUserInputDto,
   RegisterUserUseCase,
@@ -10,6 +11,12 @@ export class UserController {
 
   @Post()
   async create(@Body() dto: RegisterUserInputDto) {
-    await this.registerUser.execute(dto);
+    try {
+      await this.registerUser.execute(dto);
+    } catch (err) {
+      if (err instanceof EmailAlreadyExistsError) {
+        throw new ConflictException(err.message);
+      }
+    }
   }
 }
