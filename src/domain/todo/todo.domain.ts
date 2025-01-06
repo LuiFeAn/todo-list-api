@@ -1,14 +1,19 @@
-import { BaseEntity } from '../@shared/entity/base.entity';
 import {
   IsBoolean,
   IsEnum,
+  IsISO8601,
   IsNotEmpty,
   IsString,
+  IsUUID,
   MaxLength,
 } from 'class-validator';
 import { PriorityEnum } from './priority.enum';
 
-export class TodoList extends BaseEntity {
+export class TodoList {
+  @IsNotEmpty()
+  @IsUUID()
+  protected _id: string;
+
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
@@ -27,6 +32,10 @@ export class TodoList extends BaseEntity {
   @IsEnum(PriorityEnum)
   private _priority: PriorityEnum;
 
+  @IsNotEmpty()
+  @IsISO8601()
+  private _createdAt: string;
+
   get title() {
     return this._title;
   }
@@ -41,5 +50,9 @@ export class TodoList extends BaseEntity {
 
   get priority() {
     return this._priority;
+  }
+
+  get createdAt() {
+    return this._createdAt;
   }
 }
