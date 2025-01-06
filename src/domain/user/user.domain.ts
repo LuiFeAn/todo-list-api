@@ -9,8 +9,8 @@ import {
 } from 'class-validator';
 import { IUserConstructorProps } from './user.interface';
 import { hash, compare } from 'bcrypt';
-import mapClassValidatorErrors from '@utils/mapClassValidation';
-import { EntityErrors } from '@domain/errors/entity-errors.error';
+import classValidatorValidation from '@utils/classValidatorValidation';
+import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
 export class User {
   @IsNotEmpty()
   @IsUUID()
@@ -33,20 +33,29 @@ export class User {
   @IsISO8601()
   private _createdAt: string;
 
-  constructor({ id, createdAt, email, name, password }: IUserConstructorProps) {
+  constructor({
+    id,
+    createdAt,
+    email,
+    username,
+    password,
+  }: IUserConstructorProps) {
     this._id = id;
     this._email = email;
-    this._username = name;
+    this._username = username;
     this._password = password;
     this._createdAt = createdAt;
     this.validate();
   }
 
   validate() {
-    const errors = validateSync(this);
+    const validation = classValidatorValidation(validateSync(this));
 
-    if (errors.length > 0) {
-      throw new EntityErrors('UserDomain', errors.map(mapClassValidatorErrors));
+    if (validation.errors.length > 0) {
+      throw new EntityErrors({
+        context: 'UserDomain',
+        ...validation,
+      });
     }
   }
 
@@ -56,6 +65,10 @@ export class User {
 
   async comparePassword(password: string) {
     return compare(password, this._password);
+  }
+
+  get id() {
+    return this._id;
   }
 
   get username() {
