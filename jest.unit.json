@@ -1,0 +1,17 @@
+{
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "src",
+    "testEnvironment": "node",
+    "testRegex": ".*\\.unit\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "@swc/jest"
+    },
+    "moduleNameMapper": {
+      "^@domain/(.*)$": "<rootDir>/domain/$1",
+      "^@application/(.*)$": "<rootDir>/application/$1",
+      "^@infra/(.*)$": "<rootDir>/infra/$1",
+      "^@utils/(.*)$": "<rootDir>/utils/$1",
+      "^@shared/(.*)$": "<rootDir>/shared/$1"
+    }
+  }
+  
