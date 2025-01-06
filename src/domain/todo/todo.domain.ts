@@ -1,4 +1,4 @@
-import { BaseEntity } from '../@shared/base.entity';
+import { BaseEntity } from '../@shared/entity/base.entity';
 import {
   IsBoolean,
   IsEnum,

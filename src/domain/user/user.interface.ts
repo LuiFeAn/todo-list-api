@@ -1,7 +1,7 @@
-import { IBaseEntityConstructorProps } from '../@shared/base.entity.interface';
-
-export interface IUserConstructorProps extends IBaseEntityConstructorProps {
+export interface IUserConstructorProps {
+  id: string;
   name: string;
   email: string;
   password: string;
+  createdAt: string;
 }
