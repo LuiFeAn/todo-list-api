@@ -2,7 +2,7 @@ import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exist
 import { UserFactory } from '@domain/user/user.factory';
 import { IUserConstructorProps } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
-import { AbstractUserRepository } from '@domain/user/user.repository.abstract';
+import { AbstractUserRepository } from '@domain/user/user.repository.gateway';
 import {
   IsEmail,
   IsNotEmpty,

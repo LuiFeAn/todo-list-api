@@ -1,6 +1,6 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
 import { UserFactory } from '@domain/user/user.factory';
-import { AbstractUserRepository } from '@domain/user/user.repository.abstract';
+import { AbstractUserRepository } from '@domain/user/user.repository.gateway';
 import {
   RegisterUserUseCase,
   RegisterUserInputDto,
