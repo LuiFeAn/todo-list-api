@@ -1,0 +1,58 @@
+import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
+import { User } from '@domain/user/user.domain';
+import { UserFactory } from '@domain/user/user.factory';
+import { IUserConstructorProps } from '@domain/user/user.interface';
+import { UserMapper } from '@domain/user/user.mapper';
+import { AbstractUserRepository } from '@domain/user/user.repository.abstract';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  IsStrongPassword,
+  MaxLength,
+} from 'class-validator';
+import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
+
+export class RegisterUserUseCase
+  implements IBaseUseCase<RegisterUserInputDto, IUserConstructorProps>
+{
+  constructor(private readonly userRepo: AbstractUserRepository) {}
+
+  async execute({
+    username,
+    email,
+    password,
+  }: RegisterUserInputDto): Promise<IUserConstructorProps> {
+    const emailAlreadyExists = await this.userRepo.findByEmail(email);
+
+    if (emailAlreadyExists) {
+      throw new EmailAlreadyExistsError('E-mail já registrado');
+    }
+
+    const user = UserFactory.create({
+      email,
+      password,
+      username,
+    });
+
+    await this.userRepo.create(user);
+
+    return UserMapper.toOutput(user);
+  }
+}
+
+export class RegisterUserInputDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(250)
+  username: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsStrongPassword()
+  password: string;
+}
