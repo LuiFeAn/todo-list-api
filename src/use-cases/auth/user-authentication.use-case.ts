@@ -6,7 +6,7 @@ import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
 import {
   UserAuthenticationInputDto,
   UserAuthenticationOutputDto,
-} from './dto/user-authentication.dto';
+} from './user-authentication.dto';
 
 export class UserAuthenticationUseCase
   implements

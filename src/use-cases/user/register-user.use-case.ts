@@ -4,7 +4,7 @@ import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
-import { RegisterUserInputDto } from './dto/register-user.dto';
+import { RegisterUserInputDto } from './register-user.dto';
 
 export class RegisterUserUseCase
   implements IBaseUseCase<RegisterUserInputDto, IUser>
