@@ -32,6 +32,6 @@ export class RegisterUserUseCase
 
     await this.userRepo.create(user);
 
-    return UserMapper.toOutput(user);
+    return UserMapper.toObjectLiterals(user);
   }
 }

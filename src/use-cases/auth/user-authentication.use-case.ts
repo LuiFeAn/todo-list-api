@@ -42,7 +42,7 @@ export class UserAuthenticationUseCase
     );
 
     return {
-      user: UserMapper.toOutput(user),
+      user: UserMapper.toObjectLiterals(user),
       accessToken,
     };
   }

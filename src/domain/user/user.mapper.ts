@@ -4,13 +4,7 @@ import { UserFactory } from './user.factory';
 
 export class UserMapper {
   public static domainToTypeOrm(user: User) {
-    return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      createdAt: user.createdAt,
-    };
+    return this.toObjectLiterals(user);
   }
 
   public static typeOrmToDomain(user: UserModel) {
@@ -23,7 +17,7 @@ export class UserMapper {
     });
   }
 
-  public static toOutput(user: User) {
+  public static toObjectLiterals(user: User) {
     return {
       id: user.id,
       email: user.email,
