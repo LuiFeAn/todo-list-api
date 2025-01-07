@@ -4,9 +4,11 @@ export interface IRepositoryMetaDataInput {
 }
 
 export interface IRepositoryMetaDataOutput<E> {
-  page: number;
-  limit: number;
-  totalResources: number;
   currentPage: number;
-  resources: E[];
+  totalItemsInPage: number;
+  nextPage: boolean;
+  lastPage: boolean;
+  totalItems: number;
+  totalPages: number;
+  items: E[];
 }
