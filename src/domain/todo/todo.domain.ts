@@ -20,7 +20,7 @@ export class TodoList {
   @IsNotEmpty()
   @IsString()
   @IsUUID()
-  userId: string;
+  _userId: string;
 
   @IsString()
   @IsNotEmpty()
@@ -44,10 +44,11 @@ export class TodoList {
   @IsISO8601()
   private _createdAt: string;
 
-  constructor({ id, createdAt, description, title }: ITodo) {
+  constructor({ id, createdAt, description, title, userId }: ITodo) {
     this._id = id;
     this._description = description;
     this._title = title;
+    this._userId = userId;
     this._createdAt = createdAt;
     this.validate();
   }
@@ -78,6 +79,10 @@ export class TodoList {
 
   get title() {
     return this._title;
+  }
+
+  get userId() {
+    return this._userId;
   }
 
   get description() {

@@ -6,6 +6,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should create a TodoList successfully', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -14,6 +15,7 @@ describe('TodoList Entity Unit Tests', () => {
     const todo = new TodoList(input);
 
     expect(todo.id).toBe(input.id);
+    expect(todo.userId).toBe(input.userId);
     expect(todo.title).toBe(input.title);
     expect(todo.description).toBe(input.description);
     expect(todo.done).toBe(false);
@@ -21,9 +23,34 @@ describe('TodoList Entity Unit Tests', () => {
     expect(todo.createdAt).toBe(input.createdAt);
   });
 
-  it('should throw an error if the UUID is empty', () => {
+  it('should throw an error if userId is empty', () => {
+    const input = {
+      id: randomUUID(),
+      userId: '',
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    expect(() => new TodoList(input)).toThrow('userId should not be empty');
+  });
+
+  it('should throw an error if userId is invalid', () => {
+    const input = {
+      id: randomUUID(),
+      userId: '12345',
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    expect(() => new TodoList(input)).toThrow('userId must be a UUID');
+  });
+
+  it('should throw an error if id is empty', () => {
     const input = {
       id: '',
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -32,9 +59,10 @@ describe('TodoList Entity Unit Tests', () => {
     expect(() => new TodoList(input)).toThrow('_id should not be empty');
   });
 
-  it('should throw an error if the UUID is invalid', () => {
+  it('should throw an error if id is invalid', () => {
     const input = {
       id: '12345',
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -46,6 +74,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the title is empty', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: '',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -57,6 +86,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the title exceeds 100 characters', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'A'.repeat(101),
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -70,6 +100,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the description is empty', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: '',
       createdAt: new Date().toISOString(),
@@ -83,6 +114,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the description exceeds 800 characters', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'A'.repeat(801),
       createdAt: new Date().toISOString(),
@@ -96,6 +128,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the createdAt is empty', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: '',
@@ -107,6 +140,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should throw an error if the createdAt is not a valid ISO8601 date', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: 'invalid-date',
@@ -120,6 +154,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should mark a TodoList as done', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -134,6 +169,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should mark a TodoList as not done', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -149,6 +185,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should change the priority of a TodoList', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
@@ -166,6 +203,7 @@ describe('TodoList Entity Unit Tests', () => {
   it('should allow explicit values for done and priority', () => {
     const input = {
       id: randomUUID(),
+      userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
