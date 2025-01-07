@@ -13,7 +13,7 @@ export class CreateTodoInputDto {
 
   @IsOptional()
   @IsEnum(PriorityEnum)
-  priority: PriorityEnum;
+  priority?: PriorityEnum;
 
   constructor({
     title,

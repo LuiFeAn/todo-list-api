@@ -17,6 +17,11 @@ export class TodoList {
   @IsUUID()
   protected _id: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  userId: string;
+
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)

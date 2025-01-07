@@ -6,6 +6,7 @@ import { PriorityEnum } from './priority.enum';
 export class TodoListFactory {
   public static create({
     id,
+    userId,
     title,
     description,
     priority,
@@ -13,6 +14,7 @@ export class TodoListFactory {
   }: ICreateTodoFactoryInput) {
     return new TodoList({
       id: id ?? randomUUID(),
+      userId,
       title,
       description,
       priority: priority ?? PriorityEnum.Low,

@@ -1,5 +1,5 @@
 export type JwtOutputPayload = {
-  id: number;
+  id: string;
 };
 
 declare global {

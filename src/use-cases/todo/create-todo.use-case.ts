@@ -1,21 +1,30 @@
 import { IBaseUseCase } from '@shared/base-use-case.interface';
-import { CreateTodoInputDto } from './create-todo.dto';
 import { TodoGateway } from '@domain/todo/todo.repository.gateway';
 import { ITodo } from '@domain/todo/todo.interface';
 import { TodoListFactory } from '@domain/todo/todo.factory';
 import { TodoListMapper } from '@domain/todo/todo.mapper';
+import { PriorityEnum } from '@domain/todo/priority.enum';
+
+export interface ICreateTodoInputDto {
+  userId: string;
+  title: string;
+  description: string;
+  priority?: PriorityEnum;
+}
 
 export class CreateTodoUseCase
-  implements IBaseUseCase<CreateTodoInputDto, ITodo>
+  implements IBaseUseCase<ICreateTodoInputDto, ITodo>
 {
   constructor(private readonly todoGateway: TodoGateway) {}
 
   async execute({
+    userId,
     title,
     description,
     priority,
-  }: CreateTodoInputDto): Promise<ITodo> {
+  }: ICreateTodoInputDto): Promise<ITodo> {
     const todo = TodoListFactory.create({
+      userId,
       title,
       description,
       priority,
