@@ -49,6 +49,9 @@ export class TypeOrmTodoRepository implements TodoGateway {
             id: data.userId,
           },
         },
+        relations: {
+          user: true,
+        },
       },
       pagination: {
         offset: pagination.page,
