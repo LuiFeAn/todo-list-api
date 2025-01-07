@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Req } from '@nestjs/common';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
 
@@ -16,4 +16,7 @@ export class TodoListController {
       ...dto,
     });
   }
+
+  @Delete(':id')
+  delete() {}
 }

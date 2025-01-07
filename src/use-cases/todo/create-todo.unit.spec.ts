@@ -23,11 +23,7 @@ describe('CreateTodoUseCase', () => {
   });
 
   it('should create a todo successfully with valid input', async () => {
-    const input = new CreateTodoInputDto({
-      title: 'New Task',
-      description: 'Complete the project',
-      priority: PriorityEnum.High,
-    });
+    const input = new CreateTodoInputDto('New Task', 'Test', PriorityEnum.High);
 
     const mockTodo = TodoListFactory.create({
       userId: '123',
@@ -58,10 +54,7 @@ describe('CreateTodoUseCase', () => {
   });
 
   it('should handle missing priority and validate successfully', async () => {
-    const input = new CreateTodoInputDto({
-      title: 'Default Priority Task',
-      description: 'Task with no explicit priority',
-    });
+    const input = new CreateTodoInputDto('New Task', 'Test');
 
     const mockTodo = TodoListFactory.create({
       userId: '123',
@@ -92,11 +85,7 @@ describe('CreateTodoUseCase', () => {
   });
 
   it('should throw an error if the repository fails to create the todo', async () => {
-    const input = new CreateTodoInputDto({
-      title: 'Error Task',
-      description: 'This should fail',
-      priority: PriorityEnum.Low,
-    });
+    const input = new CreateTodoInputDto('New Task', 'Test', PriorityEnum.Low);
 
     const mockTodo = TodoListFactory.create({
       userId: '123',
