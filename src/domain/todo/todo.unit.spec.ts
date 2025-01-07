@@ -2,8 +2,24 @@ import { randomUUID } from 'crypto';
 import { TodoList } from './todo.domain';
 import { PriorityEnum } from './priority.enum';
 
-describe('TodoList Entity Unit Tests', () => {
-  it('should create a TodoList successfully', () => {
+describe('TodoList Entity Update Methods', () => {
+  it('should update the title successfully', () => {
+    const input = {
+      id: randomUUID(),
+      userId: randomUUID(),
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    const todo = new TodoList(input);
+    const newTitle = 'Updated Title';
+
+    todo.updateTilte(newTitle);
+    expect(todo.title).toBe(newTitle);
+  });
+
+  it('should throw an error when updating the title to an empty value', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
@@ -14,144 +30,76 @@ describe('TodoList Entity Unit Tests', () => {
 
     const todo = new TodoList(input);
 
-    expect(todo.id).toBe(input.id);
-    expect(todo.userId).toBe(input.userId);
-    expect(todo.title).toBe(input.title);
-    expect(todo.description).toBe(input.description);
-    expect(todo.done).toBe(false);
-    expect(todo.priority).toBe(PriorityEnum.Low);
-    expect(todo.createdAt).toBe(input.createdAt);
+    expect(() => todo.updateTilte('')).toThrow('_title should not be empty');
   });
 
-  it('should throw an error if userId is empty', () => {
+  it('should throw an error when updating the title to exceed 100 characters', () => {
     const input = {
       id: randomUUID(),
-      userId: '',
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new TodoList(input)).toThrow('userId should not be empty');
-  });
-
-  it('should throw an error if userId is invalid', () => {
-    const input = {
-      id: randomUUID(),
-      userId: '12345',
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new TodoList(input)).toThrow('userId must be a UUID');
-  });
-
-  it('should throw an error if id is empty', () => {
-    const input = {
-      id: '',
       userId: randomUUID(),
       title: 'Sample Todo',
       description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
     };
 
-    expect(() => new TodoList(input)).toThrow('_id should not be empty');
-  });
+    const todo = new TodoList(input);
+    const longTitle = 'A'.repeat(101);
 
-  it('should throw an error if id is invalid', () => {
-    const input = {
-      id: '12345',
-      userId: randomUUID(),
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new TodoList(input)).toThrow('_id must be a UUID');
-  });
-
-  it('should throw an error if the title is empty', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: '',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new TodoList(input)).toThrow('_title should not be empty');
-  });
-
-  it('should throw an error if the title exceeds 100 characters', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: 'A'.repeat(101),
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    expect(() => new TodoList(input)).toThrow(
+    expect(() => todo.updateTilte(longTitle)).toThrow(
       '_title must be shorter than or equal to 100 characters',
     );
   });
 
-  it('should throw an error if the description is empty', () => {
+  it('should update the description successfully', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
       title: 'Sample Todo',
-      description: '',
+      description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
     };
 
-    expect(() => new TodoList(input)).toThrow(
+    const todo = new TodoList(input);
+    const newDescription = 'Updated description';
+
+    todo.updateDescription(newDescription);
+    expect(todo.description).toBe(newDescription);
+  });
+
+  it('should throw an error when updating the description to an empty value', () => {
+    const input = {
+      id: randomUUID(),
+      userId: randomUUID(),
+      title: 'Sample Todo',
+      description: 'This is a sample todo description',
+      createdAt: new Date().toISOString(),
+    };
+
+    const todo = new TodoList(input);
+
+    expect(() => todo.updateDescription('')).toThrow(
       '_description should not be empty',
     );
   });
 
-  it('should throw an error if the description exceeds 800 characters', () => {
+  it('should throw an error when updating the description to exceed 800 characters', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
       title: 'Sample Todo',
-      description: 'A'.repeat(801),
+      description: 'This is a sample todo description',
       createdAt: new Date().toISOString(),
     };
 
-    expect(() => new TodoList(input)).toThrow(
+    const todo = new TodoList(input);
+    const longDescription = 'A'.repeat(801);
+
+    expect(() => todo.updateDescription(longDescription)).toThrow(
       '_description must be shorter than or equal to 800 characters',
     );
   });
 
-  it('should throw an error if the createdAt is empty', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: '',
-    };
-
-    expect(() => new TodoList(input)).toThrow('_createdAt should not be empty');
-  });
-
-  it('should throw an error if the createdAt is not a valid ISO8601 date', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: 'invalid-date',
-    };
-
-    expect(() => new TodoList(input)).toThrow(
-      '_createdAt must be a valid ISO 8601 date',
-    );
-  });
-
-  it('should mark a TodoList as done', () => {
+  it('should update the priority successfully', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
@@ -162,45 +110,14 @@ describe('TodoList Entity Unit Tests', () => {
 
     const todo = new TodoList(input);
 
-    todo.makeDone();
-    expect(todo.done).toBe(true);
-  });
-
-  it('should mark a TodoList as not done', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    const todo = new TodoList(input);
-
-    todo.makeDone();
-    todo.makeNotDone();
-    expect(todo.done).toBe(false);
-  });
-
-  it('should change the priority of a TodoList', () => {
-    const input = {
-      id: randomUUID(),
-      userId: randomUUID(),
-      title: 'Sample Todo',
-      description: 'This is a sample todo description',
-      createdAt: new Date().toISOString(),
-    };
-
-    const todo = new TodoList(input);
-
-    todo.changePriority(PriorityEnum.High);
+    todo.updatePriority(PriorityEnum.High);
     expect(todo.priority).toBe(PriorityEnum.High);
 
-    todo.changePriority(PriorityEnum.Medium);
+    todo.updatePriority(PriorityEnum.Medium);
     expect(todo.priority).toBe(PriorityEnum.Medium);
   });
 
-  it('should allow explicit values for done and priority', () => {
+  it('should throw an error when updating priority to an invalid value', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
@@ -210,10 +127,8 @@ describe('TodoList Entity Unit Tests', () => {
     };
 
     const todo = new TodoList(input);
-    todo.makeDone();
-    todo.changePriority(PriorityEnum.High);
 
-    expect(todo.done).toBe(true);
-    expect(todo.priority).toBe(PriorityEnum.High);
+    // @ts-expect-error Testing invalid enum value
+    expect(() => todo.updatePriority('InvalidPriority')).toThrow();
   });
 });

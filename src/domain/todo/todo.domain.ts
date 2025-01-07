@@ -63,6 +63,21 @@ export class TodoList {
     }
   }
 
+  updateTilte(title: string) {
+    this._title = title;
+    this.validate();
+  }
+
+  updateDescription(description: string) {
+    this._description = description;
+    this.validate();
+  }
+
+  updatePriority(priority: PriorityEnum) {
+    this._priority = priority;
+    this.validate();
+  }
+
   makeNotDone() {
     if (this._done) {
       this._done = false;
