@@ -1,7 +1,6 @@
-import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
 import { IUser } from '@domain/user/user.interface';
-import classValidatorValidation from '@utils/classValidatorValidation';
-import { IsEmail, IsNotEmpty, IsString, validateSync } from 'class-validator';
+import { entityValidator } from '@utils/entityValdiator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserAuthenticationInputDto {
   @IsNotEmpty()
@@ -20,15 +19,8 @@ export class UserAuthenticationInputDto {
     }
   }
 
-  private validate() {
-    const validation = classValidatorValidation(validateSync(this));
-
-    if (validation.errors.length > 0) {
-      throw new EntityErrors({
-        context: 'UserAuthenticationInput',
-        ...validation,
-      });
-    }
+  validate() {
+    entityValidator(this);
   }
 }
 

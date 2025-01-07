@@ -6,12 +6,10 @@ import {
   IsStrongPassword,
   IsUUID,
   MaxLength,
-  validateSync,
 } from 'class-validator';
 import { IUser } from './user.interface';
 import { hash, compare } from 'bcrypt';
-import classValidatorValidation from '@utils/classValidatorValidation';
-import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
+import { entityValidator } from '@utils/entityValdiator';
 export class User {
   @IsNotEmpty()
   @IsUUID()
@@ -40,13 +38,7 @@ export class User {
   @IsISO8601()
   private _createdAt: string;
 
-  constructor({
-    id,
-    createdAt,
-    email,
-    username,
-    password,
-  }: IUser) {
+  constructor({ id, createdAt, email, username, password }: IUser) {
     this._id = id;
     this._email = email;
     this._username = username;
@@ -56,14 +48,7 @@ export class User {
   }
 
   validate() {
-    const validation = classValidatorValidation(validateSync(this));
-
-    if (validation.errors.length > 0) {
-      throw new EntityErrors({
-        context: 'UserDomain',
-        ...validation,
-      });
-    }
+    entityValidator(this);
   }
 
   async hashPassword(salt = 9) {

@@ -7,12 +7,10 @@ import {
   IsString,
   IsUUID,
   MaxLength,
-  validateSync,
 } from 'class-validator';
 import { PriorityEnum } from './priority.enum';
 import { ITodo } from './todo.interface';
-import classValidatorValidation from '@utils/classValidatorValidation';
-import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
+import { entityValidator } from '@utils/entityValdiator';
 
 export class TodoList {
   @IsNotEmpty()
@@ -50,14 +48,7 @@ export class TodoList {
   }
 
   validate() {
-    const validation = classValidatorValidation(validateSync(this));
-
-    if (validation.errors.length > 0) {
-      throw new EntityErrors({
-        context: 'TodoDomain',
-        ...validation,
-      });
-    }
+    entityValidator(this);
   }
 
   makeDone() {
