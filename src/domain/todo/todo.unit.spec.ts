@@ -16,8 +16,8 @@ describe('TodoList Entity Unit Tests', () => {
     expect(todo.id).toBe(input.id);
     expect(todo.title).toBe(input.title);
     expect(todo.description).toBe(input.description);
-    expect(todo.done).toBe(false); // Default value
-    expect(todo.priority).toBe(PriorityEnum.Low); // Default value
+    expect(todo.done).toBe(false);
+    expect(todo.priority).toBe(PriorityEnum.Low);
     expect(todo.createdAt).toBe(input.createdAt);
   });
 
