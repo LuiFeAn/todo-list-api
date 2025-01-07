@@ -8,7 +8,6 @@ import {
   IRepositoryMetaDataInput,
   IRepositoryMetaDataOutput,
 } from '@domain/@shared/repository-meta-data.interface';
-
 export class TypeOrmTodoRepository implements TodoGateway {
   constructor(
     @InjectRepository(TodoListModel)
@@ -43,8 +42,12 @@ export class TypeOrmTodoRepository implements TodoGateway {
   ): Promise<IRepositoryMetaDataOutput<TodoList>> {
     throw new Error('Method not implemented.');
   }
-  update(id: string, data: Partial<TodoList>) {
-    throw new Error('Method not implemented.');
+  async update(id: string, data: Partial<TodoList>) {
+    await this.repository.update(id, {
+      title: data.title,
+      description: data.description,
+      priority: data.priority,
+    });
   }
   async delete(id: string): Promise<void> {
     await this.repository.delete(id);
