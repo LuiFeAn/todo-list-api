@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
 import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
+import { DetailTodoUseCase } from 'src/use-cases/todo/detail-todo.use-case';
 
 @Controller({
   path: 'todos',
@@ -10,6 +19,7 @@ import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
 export class TodoListController {
   constructor(
     private readonly createTodo: CreateTodoUseCase,
+    private readonly detailTodo: DetailTodoUseCase,
     private readonly deleteTodo: DeleteTodoUseCase,
   ) {}
 
@@ -19,6 +29,11 @@ export class TodoListController {
       userId: request.user.id,
       ...dto,
     });
+  }
+
+  @Get(':id')
+  async detial(@Param('id') id: string) {
+    return await this.detailTodo.execute(id);
   }
 
   @Delete(':id')
