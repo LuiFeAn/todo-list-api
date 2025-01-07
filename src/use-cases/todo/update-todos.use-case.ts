@@ -4,6 +4,7 @@ import { TodoGateway } from '@domain/todo/todo.repository.gateway';
 import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 export interface IUpdateTodoInputDto extends Partial<ICreateTodoInputDto> {
   id: string;
+  done?: boolean;
 }
 export class UpdateTodoUseCase
   implements IBaseUseCase<IUpdateTodoInputDto, void>
@@ -15,6 +16,7 @@ export class UpdateTodoUseCase
     description,
     title,
     priority,
+    done,
   }: IUpdateTodoInputDto): Promise<void> {
     const todo = await this.todoGateway.findById(id);
 
@@ -32,6 +34,14 @@ export class UpdateTodoUseCase
 
     if (priority) {
       todo.updatePriority(priority);
+    }
+
+    if (done && !todo.done) {
+      todo.makeDone();
+    }
+
+    if (!done && todo.done) {
+      todo.makeNotDone();
     }
 
     await this.todoGateway.update(id, todo);
