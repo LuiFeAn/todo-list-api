@@ -2,7 +2,7 @@ import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import JwtContract from '@infra/jwt/jwt-adapter';
-import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
+import { IBaseUseCase } from '@shared/base-use-case.interface';
 import {
   UserAuthenticationInputDto,
   UserAuthenticationOutputDto,

@@ -12,7 +12,13 @@ export class UserAuthenticationInputDto {
   @IsString()
   password: string;
 
-  validate() {
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+    this.validate();
+  }
+
+  private validate() {
     const validation = classValidatorValidation(validateSync(this));
 
     if (validation.errors.length > 0) {

@@ -1,9 +1,7 @@
 import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
 import { UserGateway } from '@domain/user/user.repository.gateway';
-import {
-  RegisterUserUseCase,
-  RegisterUserInputDto,
-} from './register-user.use-case';
+import { RegisterUserUseCase } from './register-user.use-case';
+import { RegisterUserInputDto } from './register-user.dto';
 
 describe('RegisterUserUseCase Unit Tests', () => {
   let userRepoMock: jest.Mocked<UserGateway>;
