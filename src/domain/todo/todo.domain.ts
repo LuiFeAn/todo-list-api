@@ -44,9 +44,19 @@ export class TodoList {
   @IsISO8601()
   private _createdAt: string;
 
-  constructor({ id, createdAt, description, title, userId }: ITodo) {
+  constructor({
+    id,
+    createdAt,
+    description,
+    done,
+    priority,
+    title,
+    userId,
+  }: ITodo) {
     this._id = id;
     this._description = description;
+    this._done = done;
+    this._priority = priority;
     this._title = title;
     this._userId = userId;
     this._createdAt = createdAt;

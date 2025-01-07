@@ -48,6 +48,7 @@ export class TypeOrmTodoRepository implements TodoGateway {
           user: {
             id: data.userId,
           },
+          priority: data.priority,
         },
         relations: {
           user: true,

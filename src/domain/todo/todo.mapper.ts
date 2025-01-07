@@ -11,6 +11,8 @@ export class TodoListMapper {
     return TodoListFactory.create({
       id: todoList.id,
       userId: todoList.user.id,
+      priority: todoList.priority,
+      done: todoList.done,
       title: todoList.title,
       description: todoList.description,
       createdAt: todoList.createdAt.toISOString(),
