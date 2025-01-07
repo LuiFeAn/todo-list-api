@@ -7,6 +7,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_FILTER } from '@nestjs/core';
+import { NotFoundDomainErrorProxyFilter } from '@infra/@shared/filters/not-found-domain-proxy.filter';
 
 @Module({
   imports: [
@@ -35,8 +37,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   controllers: [],
   providers: [
     {
-      provide: JwtPort,
-      useClass: JwtService,
+      provide: APP_FILTER,
+      useClass: NotFoundDomainErrorProxyFilter,
     },
   ],
 })
