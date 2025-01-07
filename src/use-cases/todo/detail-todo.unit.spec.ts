@@ -35,6 +35,7 @@ describe('DetailTodoUseCase', () => {
       userId: todoMock.userId,
       title: todoMock.title,
       description: todoMock.description,
+      priority: todoMock.priority,
       createdAt: todoMock.createdAt,
       done: todoMock.done,
     });
