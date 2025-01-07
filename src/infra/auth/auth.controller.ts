@@ -15,6 +15,7 @@ export class AuthController {
     try {
       return await this.userAuth.execute(dto);
     } catch (err) {
+      console.log(err);
       if (err instanceof NotFoundDomainError) {
         throw new NotFoundException(err.message);
       }

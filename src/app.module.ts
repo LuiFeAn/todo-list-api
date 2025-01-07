@@ -1,10 +1,13 @@
 import { AuthModule } from '@infra/auth/auth.module';
+import JwtPort from '@infra/jwt/jwt.port';
+import { JwtVectorModule } from '@infra/jwt/jwt.module';
 import { UserModel } from '@infra/user/user.model';
 import { UserModule } from '@infra/user/user.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -21,17 +24,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: true,
       }),
     }),
-    JwtModule.register({
-      global: true,
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
     }),
     UserModule,
+    JwtVectorModule,
     AuthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: JwtPort,
+      useClass: JwtService,
+    },
+  ],
 })
 export class AppModule {}
