@@ -23,9 +23,15 @@ export class TypeOrmTodoRepository implements TodoGateway {
     });
   }
   async findById(id: string): Promise<TodoList> {
-    const entity = await this.repository.findOneBy({
-      id,
+    const entity = await this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        user: true,
+      },
     });
+
     if (!entity) {
       return;
     }
