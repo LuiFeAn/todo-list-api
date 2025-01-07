@@ -37,7 +37,7 @@ export class TypeOrmTodoRepository implements TodoGateway {
   update(id: string, data: Partial<TodoList>) {
     throw new Error('Method not implemented.');
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
   }
 }
