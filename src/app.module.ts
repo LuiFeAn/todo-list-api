@@ -9,6 +9,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundDomainErrorProxyFilter } from '@infra/@shared/nestjs/filters/not-found-domain-proxy.filter';
 import { AuthorizationGuard } from '@infra/@shared/nestjs/guards/auth.guard';
 import { TodoListModel } from '@infra/todo/todo.model';
+import { TodoModule } from '@infra/todo/todo.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { TodoListModel } from '@infra/todo/todo.model';
       envFilePath: '.env',
     }),
     UserModule,
+    TodoModule,
     JwtVectorModule,
     AuthModule,
   ],
