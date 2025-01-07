@@ -4,9 +4,11 @@ import { UserModule } from '@infra/user/user.module';
 import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserAuthenticationUseCase } from 'src/use-cases/auth/user-authentication.use-case';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [UserModule],
+  controllers: [AuthController],
   providers: [
     {
       provide: JwtPort,

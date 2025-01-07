@@ -1,3 +1,4 @@
+import { AuthModule } from '@infra/auth/auth.module';
 import { UserModel } from '@infra/user/user.model';
 import { UserModule } from '@infra/user/user.module';
 import { Module } from '@nestjs/common';
@@ -28,6 +29,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       envFilePath: '.env',
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

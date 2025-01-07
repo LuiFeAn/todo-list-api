@@ -22,6 +22,6 @@ import { UserController } from './user.controller';
     },
     TypeOrmUserRepository,
   ],
-  exports: [RegisterUserUseCase],
+  exports: [RegisterUserUseCase,UserGateway],
 })
 export class UserModule {}
