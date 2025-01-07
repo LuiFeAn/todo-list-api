@@ -1,13 +1,13 @@
 import { UserAuthenticationUseCase } from './user-authentication.use-case';
 import { UserGateway } from '@domain/user/user.repository.gateway';
-import JwtContract from '@infra/jwt/jwt-adapter';
+import JwtPort from '@infra/jwt/jwt-port';
 import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
 import { UserFactory } from '@domain/user/user.factory';
 import { UserAuthenticationInputDto } from './user-authentication.dto';
 
 describe('UserAuthenticationUseCase', () => {
   let userRepo: jest.Mocked<UserGateway>;
-  let jwtAdapter: jest.Mocked<JwtContract>;
+  let jwtAdapter: jest.Mocked<JwtPort>;
   let useCase: UserAuthenticationUseCase;
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('UserAuthenticationUseCase', () => {
 
     jwtAdapter = {
       sign: jest.fn(),
-    } as unknown as jest.Mocked<JwtContract>;
+    } as unknown as jest.Mocked<JwtPort>;
 
     useCase = new UserAuthenticationUseCase(userRepo, jwtAdapter);
   });

@@ -1,3 +1,6 @@
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
 export interface JwtPayload {
   [key: string]: any;
   iss?: string | undefined;
@@ -8,7 +11,7 @@ export interface JwtPayload {
   iat?: number | undefined;
   jti?: string | undefined;
 }
-export default abstract class JwtContract {
+export default abstract class JwtPort {
   abstract sign(payload: string | Buffer | object, secret: string): string;
   abstract verify(token: string, secret: string): JwtPayload | unknown;
 }

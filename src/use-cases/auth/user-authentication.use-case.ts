@@ -1,7 +1,7 @@
 import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
-import JwtContract from '@infra/jwt/jwt-adapter';
+import JwtPort from '@infra/jwt/jwt-port';
 import { IBaseUseCase } from '@shared/base-use-case.interface';
 import {
   UserAuthenticationInputDto,
@@ -14,7 +14,7 @@ export class UserAuthenticationUseCase
 {
   constructor(
     private readonly userRepo: UserGateway,
-    private readonly jwtAdapter: JwtContract,
+    private readonly jwtAdapter: JwtPort,
   ) {}
 
   async execute({
