@@ -3,7 +3,7 @@ import { UserFactory } from '@domain/user/user.factory';
 import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
-import { IBaseUseCase } from 'src/@shared/base-use-case.interface';
+import { IBaseUseCase } from 'src/use-cases/@shared/base-use-case.interface';
 import { RegisterUserInputDto } from './register-user.dto';
 
 export class RegisterUserUseCase

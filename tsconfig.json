@@ -22,7 +22,7 @@
       "@application/*": ["./src/application/*"],
       "@infra/*": ["./src/infra/*"],
       "@utils/*": ["./src/utils/*"],
-      "@shared/*": ["./src/@shared/*"],
+      "@shared/*": ["src/use-cases/@shared/*"],
     }
   }
 }
