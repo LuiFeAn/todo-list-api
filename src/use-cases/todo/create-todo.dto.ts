@@ -22,7 +22,7 @@ export class CreateTodoInputDto {
   }: {
     title: string;
     description: string;
-    priority: PriorityEnum;
+    priority?: PriorityEnum;
   }) {
     if (title || description || priority) {
       this.validate();
