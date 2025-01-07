@@ -14,10 +14,12 @@ import { TodoListController } from './todo.controller';
       provide: TodoGateway,
       useClass: TypeOrmTodoRepository,
     },
+    TypeOrmTodoRepository,
     {
       provide: CreateTodoUseCase,
       useFactory: (todoGateway: TodoGateway) =>
         new CreateTodoUseCase(todoGateway),
+      inject: [TodoGateway],
     },
   ],
   exports: [TodoGateway],

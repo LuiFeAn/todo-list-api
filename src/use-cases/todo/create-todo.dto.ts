@@ -15,16 +15,8 @@ export class CreateTodoInputDto {
   @IsEnum(PriorityEnum)
   priority?: PriorityEnum;
 
-  constructor({
-    title,
-    description,
-    priority,
-  }: {
-    title: string;
-    description: string;
-    priority?: PriorityEnum;
-  }) {
-    if (title || description || priority) {
+  constructor(title: string, description: string, priority: PriorityEnum) {
+    if (title && description && priority) {
       this.validate();
     }
   }

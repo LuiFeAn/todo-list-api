@@ -15,7 +15,12 @@ export class TypeOrmTodoRepository implements TodoGateway {
     private readonly repository: Repository<TodoListModel>,
   ) {}
   async create(entity: TodoList): Promise<void> {
-    await this.repository.save(TodoListMapper.domainToTypeOrm(entity));
+    await this.repository.save({
+      user: {
+        id: entity.userId,
+      },
+      ...TodoListMapper.domainToTypeOrm(entity),
+    });
   }
   async findById(id: string): Promise<TodoList> {
     const entity = await this.repository.findOneBy({
