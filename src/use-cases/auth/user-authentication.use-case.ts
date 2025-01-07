@@ -7,6 +7,7 @@ import {
   UserAuthenticationInputDto,
   UserAuthenticationOutputDto,
 } from './user-authentication.dto';
+import { envs } from '@infra/@shared/envs';
 
 export class UserAuthenticationUseCase
   implements
@@ -37,7 +38,7 @@ export class UserAuthenticationUseCase
       {
         id: user.id,
       },
-      process.env.JWT_SECRET_KEY as string,
+      envs.JWT_SECRET,
     );
 
     return {

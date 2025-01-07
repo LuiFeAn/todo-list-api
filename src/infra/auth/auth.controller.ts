@@ -13,7 +13,7 @@ export class AuthController {
   @Post('/login')
   async auth(@Body() dto: UserAuthenticationInputDto) {
     try {
-      await this.userAuth.execute(dto);
+      return await this.userAuth.execute(dto);
     } catch (err) {
       if (err instanceof NotFoundDomainError) {
         throw new NotFoundException(err.message);

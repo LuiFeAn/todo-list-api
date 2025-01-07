@@ -4,6 +4,7 @@ import JwtPort from '@infra/jwt/jwt-port';
 import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
 import { UserFactory } from '@domain/user/user.factory';
 import { UserAuthenticationInputDto } from './user-authentication.dto';
+import { envs } from '@infra/@shared/envs';
 
 describe('UserAuthenticationUseCase', () => {
   let userRepo: jest.Mocked<UserGateway>;
@@ -49,7 +50,7 @@ describe('UserAuthenticationUseCase', () => {
     expect(mockUser.comparePassword).toHaveBeenCalledWith(input.password);
     expect(jwtAdapter.sign).toHaveBeenCalledWith(
       { id: mockUser.id },
-      process.env.JWT_SECRET_KEY,
+      envs.JWT_SECRET,
     );
 
     expect(result).toEqual({
