@@ -13,9 +13,11 @@ export class UserAuthenticationInputDto {
   password: string;
 
   constructor(email: string, password: string) {
-    this.email = email;
-    this.password = password;
-    this.validate();
+    if (email && password) {
+      this.email = email;
+      this.password = password;
+      this.validate();
+    }
   }
 
   private validate() {
