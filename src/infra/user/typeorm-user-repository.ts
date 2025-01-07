@@ -21,6 +21,9 @@ export class TypeOrmUserRepository implements UserGateway {
         email,
       },
     });
+    if (!user) {
+      return;
+    }
     return UserMapper.typeOrmToDomain(user);
   }
 
