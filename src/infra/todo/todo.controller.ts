@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
 import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
 import { DetailTodoUseCase } from 'src/use-cases/todo/detail-todo.use-case';
+import { ListTodoInputDto } from 'src/use-cases/todo/list-todos.dto';
+import { ListTodoUseCase } from 'src/use-cases/todo/list-todos.use-case';
 import { UpdateTodoInputDto } from 'src/use-cases/todo/update-todo.dto';
 import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
 
@@ -22,6 +25,7 @@ import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
 export class TodoListController {
   constructor(
     private readonly createTodo: CreateTodoUseCase,
+    private readonly listTodo: ListTodoUseCase,
     private readonly detailTodo: DetailTodoUseCase,
     private readonly updateTodo: UpdateTodoUseCase,
     private readonly deleteTodo: DeleteTodoUseCase,
@@ -30,6 +34,14 @@ export class TodoListController {
   @Post()
   async create(@Body() dto: CreateTodoInputDto, @Req() request: Request) {
     await this.createTodo.execute({
+      userId: request.user.id,
+      ...dto,
+    });
+  }
+
+  @Get()
+  async list(@Query() dto: ListTodoInputDto, @Req() request: Request) {
+    return await this.listTodo.execute({
       userId: request.user.id,
       ...dto,
     });

@@ -8,6 +8,7 @@ import { TodoListController } from './todo.controller';
 import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
 import { DetailTodoUseCase } from 'src/use-cases/todo/detail-todo.use-case';
 import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
+import { ListTodoUseCase } from 'src/use-cases/todo/list-todos.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TodoListModel])],
@@ -22,6 +23,12 @@ import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
       provide: CreateTodoUseCase,
       useFactory: (todoGateway: TodoGateway) =>
         new CreateTodoUseCase(todoGateway),
+      inject: [TodoGateway],
+    },
+    {
+      provide: ListTodoUseCase,
+      useFactory: (todoGateway: TodoGateway) =>
+        new ListTodoUseCase(todoGateway),
       inject: [TodoGateway],
     },
     {

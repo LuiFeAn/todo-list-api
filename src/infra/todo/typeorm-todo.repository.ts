@@ -8,6 +8,7 @@ import {
   IRepositoryMetaDataInput,
   IRepositoryMetaDataOutput,
 } from '@domain/@shared/repository-meta-data.interface';
+import { Pagination } from '@infra/@shared/database/typeorm/typeorom-pagination';
 export class TypeOrmTodoRepository implements TodoGateway {
   constructor(
     @InjectRepository(TodoListModel)
@@ -36,11 +37,30 @@ export class TypeOrmTodoRepository implements TodoGateway {
     }
     return TodoListMapper.typeOrmToDomain(entity);
   }
-  findAll(
+  async findAll(
     data: Partial<TodoList>,
     pagination: IRepositoryMetaDataInput,
   ): Promise<IRepositoryMetaDataOutput<TodoList>> {
-    throw new Error('Method not implemented.');
+    const todos = await Pagination({
+      repository: this.repository,
+      options: {
+        where: {
+          user: {
+            id: data.userId,
+          },
+        },
+      },
+      pagination: {
+        offset: pagination.limit,
+        limit: pagination.page,
+        all: false,
+      },
+    });
+
+    return {
+      ...todos,
+      items: todos.items.map(TodoListMapper.typeOrmToDomain),
+    };
   }
   async update(id: string, data: Partial<TodoList>) {
     await this.repository.update(id, {
