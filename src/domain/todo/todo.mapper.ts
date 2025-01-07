@@ -22,6 +22,7 @@ export class TodoListMapper {
       id: todoList.id,
       userId: todoList.userId,
       title: todoList.title,
+      priority: todoList.priority,
       description: todoList.description,
       done: todoList.done,
       createdAt: todoList.createdAt,
