@@ -3,13 +3,19 @@ import { User } from './user.domain';
 import { ICreateUserFactoryProps } from './user.factory.interface';
 
 export class UserFactory {
-  public static create({ email, password, username }: ICreateUserFactoryProps) {
+  public static create({
+    id,
+    email,
+    password,
+    username,
+    createdAt,
+  }: ICreateUserFactoryProps) {
     return new User({
-      id: randomUUID(),
+      id: id ?? randomUUID(),
       email,
       password,
       username,
-      createdAt: new Date().toISOString(),
+      createdAt: createdAt ?? new Date().toISOString(),
     });
   }
 }

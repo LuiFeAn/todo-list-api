@@ -14,7 +14,13 @@ export class UserMapper {
   }
 
   public static typeOrmToDomain(user: UserModel) {
-    return UserFactory.create(user);
+    return UserFactory.create({
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      username: user.username,
+      createdAt: user.createdAt.toISOString(),
+    });
   }
 
   public static toOutput(user: User) {
