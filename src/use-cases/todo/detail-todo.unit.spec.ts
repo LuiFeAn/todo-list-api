@@ -1,8 +1,6 @@
 import { DetailTodoUseCase } from './detail-todo.use-case';
 import { TodoGateway } from '@domain/todo/todo.repository.gateway';
 import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
-import { TodoList } from '@domain/todo/todo.domain';
-import { PriorityEnum } from '@domain/todo/priority.enum';
 import { TodoListFactory } from '@domain/todo/todo.factory';
 import { randomUUID } from 'crypto';
 
