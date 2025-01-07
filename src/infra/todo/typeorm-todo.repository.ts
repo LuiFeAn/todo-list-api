@@ -70,6 +70,7 @@ export class TypeOrmTodoRepository implements TodoGateway {
     await this.repository.update(id, {
       title: data.title,
       description: data.description,
+      done: data.done,
       priority: data.priority,
     });
   }
