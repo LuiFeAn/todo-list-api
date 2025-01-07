@@ -51,8 +51,8 @@ export class TypeOrmTodoRepository implements TodoGateway {
         },
       },
       pagination: {
-        offset: pagination.limit,
-        limit: pagination.page,
+        offset: pagination.page,
+        limit: pagination.limit,
         all: false,
       },
     });
