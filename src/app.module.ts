@@ -7,8 +7,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundDomainErrorProxyFilter } from '@infra/@shared/nestjs/filters/not-found-domain-proxy.filter';
+import { AuthorizationGuard } from '@infra/@shared/nestjs/guards/auth.guard';
 
 @Module({
   imports: [
@@ -36,6 +37,10 @@ import { NotFoundDomainErrorProxyFilter } from '@infra/@shared/nestjs/filters/no
   ],
   controllers: [],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthorizationGuard,
+    },
     {
       provide: APP_FILTER,
       useClass: NotFoundDomainErrorProxyFilter,
