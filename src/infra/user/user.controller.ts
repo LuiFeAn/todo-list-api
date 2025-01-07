@@ -1,4 +1,4 @@
-import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
+import { EmailAlreadyExistsError } from '@domain/@shared/errors/user/email-already-exists.error';
 import { PublicRoute } from '@infra/@shared/nestjs/decorators';
 import { Body, ConflictException, Controller, Post } from '@nestjs/common';
 import { RegisterUserInputDto } from 'src/use-cases/user/register-user.dto';

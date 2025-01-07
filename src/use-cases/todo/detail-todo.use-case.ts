@@ -1,6 +1,6 @@
 import { IBaseUseCase } from '@shared/base-use-case.interface';
 import { TodoGateway } from '@domain/todo/todo.repository.gateway';
-import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
+import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 import { ITodo } from '@domain/todo/todo.interface';
 import { TodoListMapper } from '@domain/todo/todo.mapper';
 

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { QueryFailedError } from 'typeorm';
 import { Response } from 'express';
-import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
+import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 
 @Catch(NotFoundDomainError)
 export class NotFoundDomainErrorProxyFilter implements ExceptionFilter {

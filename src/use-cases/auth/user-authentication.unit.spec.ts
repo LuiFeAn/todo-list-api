@@ -1,7 +1,7 @@
 import { UserAuthenticationUseCase } from './user-authentication.use-case';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import JwtPort from '@infra/jwt/jwt.port';
-import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
+import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 import { UserFactory } from '@domain/user/user.factory';
 import { UserAuthenticationInputDto } from './user-authentication.dto';
 import { envs } from '@infra/@shared/envs';

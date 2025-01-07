@@ -1,4 +1,4 @@
-import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
+import { EmailAlreadyExistsError } from '@domain/@shared/errors/user/email-already-exists.error';
 import { UserFactory } from '@domain/user/user.factory';
 import { IUser } from '@domain/user/user.interface';
 import { UserMapper } from '@domain/user/user.mapper';

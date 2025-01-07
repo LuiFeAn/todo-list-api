@@ -1,6 +1,6 @@
 import { DeleteTodoUseCase } from './delete-todo.use-case';
 import { TodoGateway } from '@domain/todo/todo.repository.gateway';
-import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
+import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 import { TodoListFactory } from '@domain/todo/todo.factory';
 import { randomUUID } from 'crypto';
 

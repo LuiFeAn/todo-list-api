@@ -1,4 +1,4 @@
-import { EmailAlreadyExistsError } from '@domain/errors/user/email-already-exists.error';
+import { EmailAlreadyExistsError } from '@domain/@shared/errors/user/email-already-exists.error';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import { RegisterUserUseCase } from './register-user.use-case';
 import { RegisterUserInputDto } from './register-user.dto';

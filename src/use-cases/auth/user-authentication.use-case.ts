@@ -1,4 +1,4 @@
-import { NotFoundDomainError } from '@domain/errors/not-found/not-found.errors';
+import { NotFoundDomainError } from '@domain/@shared/errors/not-found/not-found.errors';
 import { UserMapper } from '@domain/user/user.mapper';
 import { UserGateway } from '@domain/user/user.repository.gateway';
 import JwtPort from '@infra/jwt/jwt.port';

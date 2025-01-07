@@ -1,6 +1,6 @@
 import { validateSync } from 'class-validator';
 import classValidatorValidation from './classValidatorValidation';
-import { EntityErrors } from '@domain/errors/entity-validation/entity-errors.error';
+import { EntityErrors } from '@domain/@shared/errors/entity-validation/entity-errors.error';
 
 export const entityValidator = (entity: object) => {
   const validation = classValidatorValidation(validateSync(entity));
