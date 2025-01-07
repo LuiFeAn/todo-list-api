@@ -1,5 +1,6 @@
 import { BaseTypeOrmEntity } from '@infra/@shared/database/typeorm/base-entity';
-import { Column, Entity } from 'typeorm';
+import { TodoListModel } from '@infra/todo/todo.model';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('users')
 export class UserModel extends BaseTypeOrmEntity {
@@ -18,4 +19,7 @@ export class UserModel extends BaseTypeOrmEntity {
     type: 'varchar',
   })
   password: string;
+
+  @OneToMany(() => TodoListModel, (todoListModel) => todoListModel)
+  todos: TodoListModel[];
 }

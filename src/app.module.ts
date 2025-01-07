@@ -1,15 +1,14 @@
 import { AuthModule } from '@infra/auth/auth.module';
-import JwtPort from '@infra/jwt/jwt.port';
 import { JwtVectorModule } from '@infra/jwt/jwt.module';
 import { UserModel } from '@infra/user/user.model';
 import { UserModule } from '@infra/user/user.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundDomainErrorProxyFilter } from '@infra/@shared/nestjs/filters/not-found-domain-proxy.filter';
 import { AuthorizationGuard } from '@infra/@shared/nestjs/guards/auth.guard';
+import { TodoListModel } from '@infra/todo/todo.model';
 
 @Module({
   imports: [
@@ -23,8 +22,7 @@ import { AuthorizationGuard } from '@infra/@shared/nestjs/guards/auth.guard';
         username: configService.get<string>('DB_USER'),
         port: configService.get<number>('DB_PORT'),
         password: configService.get<string>('DB_PASS'),
-        entities: [UserModel],
-        synchronize: true,
+        entities: [UserModel, TodoListModel],
       }),
     }),
     ConfigModule.forRoot({
