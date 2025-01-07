@@ -26,6 +26,9 @@ export class TypeOrmTodoRepository implements TodoGateway {
     const entity = await this.repository.findOneBy({
       id,
     });
+    if (!entity) {
+      return;
+    }
     return TodoListMapper.typeOrmToDomain(entity);
   }
   findAll(
