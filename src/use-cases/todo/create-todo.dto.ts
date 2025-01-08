@@ -4,11 +4,11 @@ import { IsEnum, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 
 export class CreateTodoInputDto {
   @IsNotEmpty()
-  @MaxLength(100)
+  @MaxLength(20)
   title: string;
 
   @IsNotEmpty()
-  @MaxLength(800)
+  @MaxLength(250)
   description: string;
 
   @IsOptional()
