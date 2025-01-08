@@ -4,6 +4,11 @@ Desenvolvi este projeto utilizando a arquitetura Hexagonal/Clean Architecture, p
 
 Agradeço pela oportunidade e peço desculpas caso algo esteja incompleto devido ao tempo limitado, causado por compromissos prévios.
 
+Não inseri migrations pois como são apenas duas entidades não ache necessário
+Gostaria de tido mais tempo pra documentar os endpoints com Swagger, mas infelizmente não consegui.
+
+Obrigado =)
+
 ---
 
 ## Pré-requisitos
