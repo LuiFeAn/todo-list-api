@@ -24,6 +24,7 @@ import { TodoModule } from '@infra/todo/todo.module';
         port: configService.get<number>('DB_PORT'),
         password: configService.get<string>('DB_PASS'),
         entities: [UserModel, TodoListModel],
+        synchronize: true,
       }),
     }),
     ConfigModule.forRoot({
