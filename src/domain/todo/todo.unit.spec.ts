@@ -33,7 +33,7 @@ describe('TodoList Entity Update Methods', () => {
     expect(() => todo.updateTilte('')).toThrow('_title should not be empty');
   });
 
-  it('should throw an error when updating the title to exceed 100 characters', () => {
+  it('should throw an error when updating the title to exceed 20 characters', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
@@ -46,7 +46,7 @@ describe('TodoList Entity Update Methods', () => {
     const longTitle = 'A'.repeat(101);
 
     expect(() => todo.updateTilte(longTitle)).toThrow(
-      '_title must be shorter than or equal to 100 characters',
+      '_title must be shorter than or equal to 20 characters',
     );
   });
 
@@ -82,7 +82,7 @@ describe('TodoList Entity Update Methods', () => {
     );
   });
 
-  it('should throw an error when updating the description to exceed 800 characters', () => {
+  it('should throw an error when updating the description to exceed 250 characters', () => {
     const input = {
       id: randomUUID(),
       userId: randomUUID(),
@@ -95,7 +95,7 @@ describe('TodoList Entity Update Methods', () => {
     const longDescription = 'A'.repeat(801);
 
     expect(() => todo.updateDescription(longDescription)).toThrow(
-      '_description must be shorter than or equal to 800 characters',
+      '_description must be shorter than or equal to 250 characters',
     );
   });
 
