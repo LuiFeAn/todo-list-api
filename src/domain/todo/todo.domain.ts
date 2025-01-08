@@ -24,12 +24,12 @@ export class TodoList {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
+  @MaxLength(20)
   private _title: string;
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(800)
+  @MaxLength(250)
   private _description: string;
 
   @IsBoolean()
