@@ -1,7 +1,7 @@
 import { TodoGateway } from '@domain/todo/todo.repository.gateway';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoListModel } from './todo.model';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { TodoList } from '@domain/todo/todo.domain';
 import { TodoListMapper } from '@domain/todo/todo.mapper';
 import {
@@ -44,12 +44,22 @@ export class TypeOrmTodoRepository implements TodoGateway {
     const todos = await Pagination({
       repository: this.repository,
       options: {
-        where: {
-          user: {
-            id: data.userId,
+        where: [
+          {
+            user: {
+              id: data.userId,
+            },
+            priority: data.priority,
+            done: data.done,
+            title: data.title && Like(`%${data.title}%`),
           },
-          priority: data.priority,
-        },
+          {
+            title: data.title && Like(`%${data.title}%`),
+          },
+          {
+            description: data.description && Like(`%${data.description}%`),
+          },
+        ],
         relations: {
           user: true,
         },

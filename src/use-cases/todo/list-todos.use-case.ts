@@ -10,6 +10,8 @@ import { ITodo } from '@domain/todo/todo.interface';
 
 export interface IListTodoInputDto extends IRepositoryMetaDataInput {
   userId: string;
+  search?: string;
+  done?: boolean;
   priority?: PriorityEnum;
 }
 
@@ -21,13 +23,18 @@ export class ListTodoUseCase
   async execute({
     userId,
     priority,
+    search,
     limit,
     page,
+    done,
   }: IListTodoInputDto): Promise<IRepositoryMetaDataOutput<ITodo>> {
     const todos = await this.todoGateway.findAll(
       {
         userId,
         priority,
+        description: search,
+        title: search,
+        done,
       },
       {
         limit,
