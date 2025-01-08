@@ -20,6 +20,11 @@ export class TypeOrmUserRepository implements UserGateway {
       where: {
         email,
       },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+      },
     });
     if (!user) {
       return;
