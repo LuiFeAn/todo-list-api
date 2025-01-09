@@ -9,6 +9,7 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
+import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
 import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
@@ -17,6 +18,8 @@ import { ListTodoInputDto } from 'src/use-cases/todo/list-todos.dto';
 import { ListTodoUseCase } from 'src/use-cases/todo/list-todos.use-case';
 import { UpdateTodoInputDto } from 'src/use-cases/todo/update-todo.dto';
 import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
+import { CreateTodoHttpInput } from './create-todo.swagger';
+import { ListTodoHttpInput } from './list-todo.swagger';
 
 @Controller({
   path: 'todos',
@@ -32,6 +35,12 @@ export class TodoListController {
   ) {}
 
   @Post()
+  @ApiBody({
+    type: CreateTodoHttpInput,
+  })
+  @ApiCreatedResponse({
+    description: 'Tarefa criada com Sucesso',
+  })
   async create(@Body() dto: CreateTodoInputDto, @Req() request: Request) {
     await this.createTodo.execute({
       userId: request.user.id,
@@ -40,6 +49,9 @@ export class TodoListController {
   }
 
   @Get()
+  @ApiOkResponse({
+    type: ListTodoHttpInput,
+  })
   async list(@Query() dto: ListTodoInputDto, @Req() request: Request) {
     return await this.listTodo.execute({
       userId: request.user.id,
