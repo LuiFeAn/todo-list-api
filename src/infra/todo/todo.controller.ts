@@ -14,6 +14,7 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
@@ -24,7 +25,10 @@ import { ListTodoUseCase } from 'src/use-cases/todo/list-todos.use-case';
 import { UpdateTodoInputDto } from 'src/use-cases/todo/update-todo.dto';
 import { UpdateTodoUseCase } from 'src/use-cases/todo/update-todos.use-case';
 import { CreateTodoHttpInput } from './create-todo.swagger';
-import { ListTodoHttpInput } from './list-todo.swagger';
+import {
+  ListTodoHttpInput,
+  ListTodoHttpQueryParamsInput,
+} from './list-todo.swagger';
 
 @Controller({
   path: 'todos',
@@ -59,6 +63,9 @@ export class TodoListController {
   @Get()
   @ApiOkResponse({
     type: ListTodoHttpInput,
+  })
+  @ApiQuery({
+    type: ListTodoHttpQueryParamsInput,
   })
   async list(@Query() dto: ListTodoInputDto, @Req() request: Request) {
     return await this.listTodo.execute({

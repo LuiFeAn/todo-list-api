@@ -1,4 +1,27 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { PriorityEnum } from '@domain/todo/priority.enum';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
+export class ListTodoHttpQueryParamsInput {
+  @ApiPropertyOptional({
+    description:
+      'Termo de busca para filtrar as tarefas pelo título ou descrição.',
+    example: 'alguma tarefa',
+  })
+  search?: string;
+
+  @ApiPropertyOptional({
+    description: 'Filtrar por tarefas concluídas ou não concluídas.',
+    example: true,
+  })
+  done?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Filtrar as tarefas pela prioridade.',
+    enum: PriorityEnum,
+    example: PriorityEnum.High,
+  })
+  priority?: PriorityEnum;
+}
 
 export class TodoItem {
   @ApiProperty({
