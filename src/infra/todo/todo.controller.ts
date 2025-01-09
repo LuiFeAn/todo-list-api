@@ -29,6 +29,7 @@ import {
   ListTodoHttpInput,
   ListTodoHttpQueryParamsInput,
 } from './list-todo.swagger';
+import { DetailTodoHttpInput } from './detail-todo.swagger';
 
 @Controller({
   path: 'todos',
@@ -75,6 +76,9 @@ export class TodoListController {
   }
 
   @Get(':id')
+  @ApiOkResponse({
+    type: DetailTodoHttpInput,
+  })
   async detial(@Param('id') id: string) {
     return await this.detailTodo.execute(id);
   }
