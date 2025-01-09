@@ -9,7 +9,12 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { CreateTodoInputDto } from 'src/use-cases/todo/create-todo.dto';
 import { CreateTodoUseCase } from 'src/use-cases/todo/create-todo.use-case';
 import { DeleteTodoUseCase } from 'src/use-cases/todo/delete-todo.use-case';
@@ -40,6 +45,9 @@ export class TodoListController {
   })
   @ApiCreatedResponse({
     description: 'Tarefa criada com Sucesso',
+  })
+  @ApiBadRequestResponse({
+    description: 'Erro de Validação no Body',
   })
   async create(@Body() dto: CreateTodoInputDto, @Req() request: Request) {
     await this.createTodo.execute({
