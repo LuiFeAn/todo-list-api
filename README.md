@@ -6,11 +6,13 @@ Agradeço pela oportunidade e peço desculpas caso algo esteja incompleto devido
 
 - Não inseri migrations (o synchronize do ORM está ativo) pois como são apenas duas entidades não achei necessário.
 
-- Gostaria de tido mais tempo pra documentar os endpoints com Swagger, mas infelizmente não foi possível.
-
 Obrigado =)
 
 ---
+
+## Documentação dos Endpoints (Swagger)
+
+Acesse `http://localhost:{API_PORT}/swagger`
 
 ## Pré-requisitos
 
