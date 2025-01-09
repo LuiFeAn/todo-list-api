@@ -13,6 +13,7 @@ import {
   ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiQuery,
 } from '@nestjs/swagger';
@@ -30,6 +31,7 @@ import {
   ListTodoHttpQueryParamsInput,
 } from './list-todo.swagger';
 import { DetailTodoHttpInput } from './detail-todo.swagger';
+import { UpdateTodoHttpInput } from './update-todo.swagger';
 
 @Controller({
   path: 'todos',
@@ -68,6 +70,9 @@ export class TodoListController {
   @ApiQuery({
     type: ListTodoHttpQueryParamsInput,
   })
+  @ApiBadRequestResponse({
+    description: 'Erro de Validação no Body',
+  })
   async list(@Query() dto: ListTodoInputDto, @Req() request: Request) {
     return await this.listTodo.execute({
       userId: request.user.id,
@@ -79,11 +84,26 @@ export class TodoListController {
   @ApiOkResponse({
     type: DetailTodoHttpInput,
   })
+  @ApiNotFoundResponse({
+    description: 'Tarefa não encontrada',
+  })
   async detial(@Param('id') id: string) {
     return await this.detailTodo.execute(id);
   }
 
   @Patch(':id')
+  @ApiBody({
+    type: UpdateTodoHttpInput,
+  })
+  @ApiNotFoundResponse({
+    description: 'Tarefa não encontrada',
+  })
+  @ApiOkResponse({
+    description: 'Tarefa atualizada com Sucesso',
+  })
+  @ApiBadRequestResponse({
+    description: 'Erro de Validação no Body',
+  })
   async partialUpdate(
     @Param('id') id: string,
     @Body() dto: UpdateTodoInputDto,
@@ -95,6 +115,9 @@ export class TodoListController {
   }
 
   @Delete(':id')
+  @ApiNotFoundResponse({
+    description: 'Tarefa não encontrada',
+  })
   async del(@Param('id') id: string) {
     await this.deleteTodo.execute(id);
   }
