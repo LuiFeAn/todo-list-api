@@ -1,7 +1,12 @@
 import { EmailAlreadyExistsError } from '@domain/@shared/errors/user/email-already-exists.error';
 import { PublicRoute } from '@infra/@shared/nestjs/decorators';
 import { Body, ConflictException, Controller, Post } from '@nestjs/common';
-import { ApiBody, ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiConflictResponse,
+  ApiCreatedResponse,
+} from '@nestjs/swagger';
 import { RegisterUserInputDto } from 'src/use-cases/user/register-user.dto';
 import { RegisterUserUseCase } from 'src/use-cases/user/register-user.use-case';
 import { RegisterUserHttpInput } from './register-user.swagger';
@@ -16,6 +21,12 @@ export class UserController {
   })
   @ApiCreatedResponse({
     description: 'Usuário Registrado',
+  })
+  @ApiConflictResponse({
+    description: 'E-mail já registrado',
+  })
+  @ApiBadRequestResponse({
+    description: 'Erro de validação no Body',
   })
   @PublicRoute()
   async create(@Body() dto: RegisterUserInputDto) {

@@ -3,7 +3,11 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { UserAuthenticationInputDto } from 'src/use-cases/auth/user-authentication.dto';
 import { UserAuthenticationUseCase } from 'src/use-cases/auth/user-authentication.use-case';
 import { AuthPresenter } from './auth.presenter';
-import { ApiBody, ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { AuthHttpInput, AuthHttpOutput } from './auth.swagger';
 
 @Controller({
@@ -20,6 +24,9 @@ export class AuthController {
   @ApiCreatedResponse({
     description: 'Autenticado com Sucesso',
     type: AuthHttpOutput,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'E-mail ou senha incorreto(s)',
   })
   @PublicRoute()
   async auth(@Body() dto: UserAuthenticationInputDto) {
