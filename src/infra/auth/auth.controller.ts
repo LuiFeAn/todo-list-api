@@ -18,6 +18,7 @@ export class AuthController {
     type: AuthHttpInput,
   })
   @ApiCreatedResponse({
+    description: 'Autenticado com Sucesso',
     type: AuthHttpOutput,
   })
   @PublicRoute()
