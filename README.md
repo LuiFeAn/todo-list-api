@@ -2,14 +2,6 @@
 
 Desenvolvi este projeto utilizando a arquitetura Hexagonal/Clean Architecture, simulando uma API que poderia ser mais escalável. Assim, priorizando facilidade de manutenção e independência de detalhes técnicos como frameworks e banco de dados
 
-Agradeço pela oportunidade e peço desculpas caso algo esteja incompleto devido ao tempo limitado, causado por compromissos prévios.
-
-- Não inseri migrations (o synchronize do ORM está ativo) pois como são apenas duas entidades não achei necessário.
-
-Obrigado =)
-
----
-
 ## Documentação dos Endpoints (Swagger)
 
 Acesse `http://localhost:{API_PORT}/swagger`
