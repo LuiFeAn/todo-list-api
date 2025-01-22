@@ -1,6 +1,6 @@
 # NestJS App - Guia de Uso e Configuração
 
-Desenvolvi este projeto utilizando a arquitetura Hexagonal/Clean Architecture, simulando uma API que poderia ser mais escalável. Assim, priorizando facilidade de manutenção e independência de detalhes técnicos como frameworks e banco de dados
+Apesar de não ser necessário para o contexto de um todo-list simples, desenvolvi este projeto utilizando a arquitetura Hexagonal/Clean Architecture, simulando uma API que poderia ser mais escalável. Assim, priorizando facilidade de manutenção e independência de detalhes técnicos como frameworks e banco de dados
 
 ## Documentação dos Endpoints (Swagger)
 
